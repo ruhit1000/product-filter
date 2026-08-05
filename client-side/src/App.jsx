@@ -23,13 +23,22 @@ function App() {
   const [filterQuery, setFilterQuery] = useState(INITIAL_FILTER_QUERY);
 
   useEffect(() => {
+    const getFilters = async () => {
+      try {
+        const filtersData = await fetchFilters();
+        setFilterOptions(filtersData);
+      } catch (error) {
+        console.error("Error fetching filters:", error);
+      }
+    };
+    getFilters();
+  }, []);
+
+  useEffect(() => {
     const getData = async () => {
       try {
-        const [filtersData, productsData] = await Promise.all([
-          fetchFilters(),
-          fetchProducts(),
-        ]);
-        setFilterOptions(filtersData);
+        setIsLoading(true);
+        const productsData = await fetchProducts(filterQuery);
         setProducts(productsData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -38,10 +47,6 @@ function App() {
       }
     };
     getData();
-  }, []);
-
-  useEffect(() => {
-    console.log("Filter query:", filterQuery);
   }, [filterQuery]);
 
   const updateMultiSelectFilter = (filterKey, filterValue) => {
@@ -90,6 +95,15 @@ function App() {
               <span className="rounded-full bg-white/80 px-4 py-2 text-sm font-medium text-slate-500 shadow-sm ring-1 ring-slate-200/80 backdrop-blur">
                 Loading products...
               </span>
+            </div>
+          ) : products.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-20 text-center">
+              <h3 className="text-lg font-medium text-slate-900">
+                No products found
+              </h3>
+              <p className="mt-1 text-sm text-slate-500">
+                We couldn't find any products matching your criteria.
+              </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
