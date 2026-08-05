@@ -1,1 +1,31 @@
 @import "tailwindcss";
+@plugin "daisyui";
+
+:root {
+	color-scheme: light;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	min-width: 320px;
+	background:
+		radial-gradient(circle at top left, rgba(125, 211, 252, 0.22), transparent 28%),
+		radial-gradient(circle at top right, rgba(165, 243, 252, 0.22), transparent 24%),
+		linear-gradient(180deg, #f8fbff 0%, #f3f8fc 48%, #ecf3f8 100%);
+}
+
+#root {
+	min-height: 100vh;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+::selection {
+	background: rgba(14, 165, 233, 0.18);
+	color: #0f172a;
+}
