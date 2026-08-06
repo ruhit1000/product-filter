@@ -11,7 +11,7 @@ const port = 3000;
 
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: process.env.CLIENT_URL,
   methods: ['GET', 'POST', 'QUERY', 'OPTIONS'],
   exposedHeaders: ["Allow", "Accept-Query"],
   preflightContinue: true,
@@ -88,14 +88,14 @@ async function run() {
         const storage = await collection.distinct('internalStorage');
         const battery = await collection.distinct('battery');
 
-        res.json({ 
-          brands : brands.sort(),
-          displayTypes : displayTypes.sort(),
-          chipsets : chipsets.sort(),
-          ram : ram.sort((a, b) => a - b),
-          storage : storage.sort((a, b) => a - b),
-          battery : battery.sort((a, b) => a - b)
-         });
+        res.json({
+          brands: brands.sort(),
+          displayTypes: displayTypes.sort(),
+          chipsets: chipsets.sort(),
+          ram: ram.sort((a, b) => a - b),
+          storage: storage.sort((a, b) => a - b),
+          battery: battery.sort((a, b) => a - b)
+        });
       } catch (error) {
         console.error('Error fetching filters:', error);
         res.status(500).json({ error: 'Internal Server Error' });
