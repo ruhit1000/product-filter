@@ -1,5 +1,7 @@
 # Products Filter (QUERY Method implementation)
 
+**Live Demo:** [https://product-filter-two-kappa.vercel.app/](https://product-filter-two-kappa.vercel.app/)
+
 This project demonstrates a full-stack product filtering application. It specifically highlights the usage of the modern HTTP `QUERY` method for fetching filtered data, showcasing an alternative to the traditional `GET` or `POST` methods for complex search operations.
 
 ## The Problem with Traditional Methods
